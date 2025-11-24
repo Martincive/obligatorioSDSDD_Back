@@ -43,8 +43,6 @@ curl http://localhost:8000/health
 
 ## Endpoints
 
-Chat normal:
-
 Chat con streaming SSE:
 curl -N -X POST http://localhost:8000/chat/stream -H "Content-Type: application/json" -d "{\"question\":\"Qué productos vendieron en total?\"}"
 
