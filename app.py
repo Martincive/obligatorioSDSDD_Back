@@ -1,6 +1,7 @@
 from fastapi import FastAPI
 from pydantic import BaseModel
 from rag_pipeline import build_qa
+from sse_starlette.sse import EventSourceResponse
 
 app = FastAPI()
 qa = build_qa()
@@ -12,14 +13,11 @@ class Question(BaseModel):
 def health():
     return {"status": "ok"}
 
-@app.post("/chat")
-def chat(q: Question):
-    global qa
-    if qa is None:
-        return {"answer": "El sistema aún se está inicializando."}
+@app.post("/chat/stream")
+async def chat_stream(q: Question):
 
-    response = qa.invoke(q.question)
+    async def event_generator():
+        for chunk in qa.stream(q.question):
+            yield {"data": chunk.content}
 
-    return {
-        "answer": response.content
-    }
+    return EventSourceResponse(event_generator())
