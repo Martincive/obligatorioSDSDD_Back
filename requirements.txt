@@ -1,0 +1,14 @@
+fastapi
+uvicorn
+python-dotenv
+pandas
+openpyxl
+langchain
+langchain-community
+langchain-core
+ollama
+faiss-cpu
+langchain-ollama
+chromadb
+
+
