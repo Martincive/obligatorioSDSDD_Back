@@ -10,5 +10,4 @@ ollama
 faiss-cpu
 langchain-ollama
 chromadb
-sse-starlette
 
